@@ -6,13 +6,16 @@ from sklearn.preprocessing import StandardScaler
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, message=".*does not have valid feature names.*")
 from xgboost import XGBClassifier
+from pathlib import Path
 
+# Base dirs relative to this script’s location
+SCRIPT_DIR = Path(__file__).resolve().parent                 # .../TournamentModelsNoInput
+PROJECT_ROOT = SCRIPT_DIR.parent                             # .../MarchMadnessUpsetPredictor
 
-
-# Paths to your data folders
-bart_torvik_path = 'bart_torvik_data'
-kenpom_path = 'kenpom_data'
-tournament_path = 'tournament_data'
+bart_torvik_path = PROJECT_ROOT / 'bart_torvik_data'
+kenpom_path      = PROJECT_ROOT / 'kenpom_data'
+tournament_path  = PROJECT_ROOT / 'tournament_data'
+in_files_path         = PROJECT_ROOT / 'in_files'
 
 # Load all Bart Torvik data
 def load_bart_torvik():
@@ -157,7 +160,7 @@ def train_model_dynamically(features, labels, tournament_data):
 
 def predict_upset_from_file(model, scaler, bart_data, kenpom_data, file_path):
     year = int(file_path.split('_')[0])
-    file_path = "in_files/" + file_path
+    file_path = str(in_files_path) + "/" + file_path
     if not os.path.exists(file_path):
         print(f"File {file_path} not found.")
         return

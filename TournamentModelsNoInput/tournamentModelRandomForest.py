@@ -7,11 +7,15 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 import statsmodels.api as sm
+from pathlib import Path
 
-# Paths to your data folders
-bart_torvik_path = 'bart_torvik_data'
-kenpom_path = 'kenpom_data'
-tournament_path = 'tournament_data'
+# Base dirs relative to this script’s location
+SCRIPT_DIR = Path(__file__).resolve().parent                 # .../TournamentModelsNoInput
+PROJECT_ROOT = SCRIPT_DIR.parent                             # .../MarchMadnessUpsetPredictor
+
+bart_torvik_path = PROJECT_ROOT / 'bart_torvik_data'
+kenpom_path      = PROJECT_ROOT / 'kenpom_data'
+tournament_path  = PROJECT_ROOT / 'tournament_data'
 
 # Load all Bart Torvik data
 def load_bart_torvik():
